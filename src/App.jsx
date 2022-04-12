@@ -1,14 +1,16 @@
 import React from "react";
 import "./App.css";
+import { DataContext } from "./context/CredentialsProvider";
 import { ThemeContext } from "./context/ThemeProvider";
 
 function App() {
-	const { theme, setTheme } = React.useContext(ThemeContext);
+	const { theme, changeColor, changebackground } = React.useContext(ThemeContext);
+	const { globalData } = React.useContext(DataContext);
 
 	const centeredItems = {
 		display: "flex",
 		justifyContent: "center",
-		marginBottom: "2em",
+		flexDirection: "column",
 	};
 
 	const container = theme;
@@ -23,7 +25,7 @@ function App() {
 						id=""
 						value={theme.background}
 						onChange={(e) => {
-							setTheme({ ...theme, background: e.target.value });
+							changebackground({ ...theme, background: e.target.value });
 						}}
 					/>
 				</div>
@@ -34,9 +36,18 @@ function App() {
 						id=""
 						value={theme.color}
 						onChange={(e) => {
-							setTheme({ ...theme, color: e.target.value });
+							changeColor({ ...theme, color: e.target.value });
 						}}
 					/>
+				</div>
+				<div style={centeredItems}>
+					<div>
+						<span>Nombre: {globalData.name}</span>
+					</div>
+					<div>
+						{" "}
+						<span>Rango: {globalData.range}</span>
+					</div>
 				</div>
 			</div>
 		</>
